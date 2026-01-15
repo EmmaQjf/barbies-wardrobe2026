@@ -259,7 +259,20 @@ careerSelect.addEventListener("change", (event) => {
 });
 
 
-// const careerLists = careers.map(item => item.name)
-// let label = document.createElement('label')
+// selling asset 
+const sellPropertyBtn = document.createElement('button')
+sellPropertyBtn.textContent = "sell property"
+sellBtn.after(sellPropertyBtn)
 
-// careerLists.appendChild(label)
+sellPropertyBtn.addEventListener("click", () => {
+    if (barbie.properties.length > 0) {
+           let removedProperty = barbie.properties.splice(randomization(barbie.properties.length),1)[0]
+           barbie.career.wallet += removedProperty.price
+           barbie.render()
+           console.log('you sold the place')
+           console.log(barbie.properties)
+    } else{
+        alert("you got no property to sell")
+    }
+   
+})
