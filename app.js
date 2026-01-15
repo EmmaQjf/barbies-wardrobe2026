@@ -220,3 +220,46 @@ sellBtn.addEventListener("click",()=>{
     }   
     barbie.render();
 })
+
+//Career Change Feature:
+const careerLists = document.createElement('div');
+careerLists.innerHTML= `
+<label for="career">Choose a career:</label>
+<select name="careers" id="careers">
+${careers.map(item => {
+    return `<option>${item.name}</option>`}).join("")}
+  
+</select>
+`
+
+const barbieBox = document.getElementById("barbie")
+barbieBox.after(careerLists)
+const careerSelect = document.getElementById("careers");
+
+// let allOptions = document.querySelectorAll("option")
+// for (let i = 0; i < allOptions.length; i++){
+//     allOptions[i].addEventListener("change", (event)=>{
+//         barbie.career = careers[i];
+//         barbie.render()
+//         console.log(allOptions[i].textContent)
+//     })
+// }
+
+// Only the <select> element fires "change" when the user picks an option. 
+careerSelect.addEventListener("change", (event) => {
+    // event.target.value gives the selected option text
+    const selectedCareerName = event.target.value;
+    const selectedIndex = event.target.selectedIndex;
+
+    // Find the career object that matches the selected name
+    // barbie.career = careers.find(c => c.name === selectedCareerName);
+    barbie.career = careers[selectedIndex]
+    barbie.render();
+    console.log(`Selected career: ${selectedCareerName}`);
+});
+
+
+// const careerLists = careers.map(item => item.name)
+// let label = document.createElement('label')
+
+// careerLists.appendChild(label)
