@@ -273,6 +273,76 @@ sellPropertyBtn.addEventListener("click", () => {
            console.log(barbie.properties)
     } else{
         alert("you got no property to sell")
-    }
-   
+    }  
+})
+
+
+
+//incoporate Ken
+
+const ken = {
+    name: 'Ken',
+    wardrobe: [],
+    wallet: 0
+}
+
+ken.career = careers[randomization(careers.length)]
+const kenContainer = document.createElement("div")
+const buttonContainer = document.querySelector(".button-container")
+buttonContainer.after(kenContainer)
+
+
+kenContainer.style.borderColor = "red"
+
+ken.render = () => {
+    kenContainer.innerHTML = `
+    <h1>${ken.name} Status</h1>
+    <h3>${ken.name} works as a ${ken.career.name} </h3>
+    <h3> Each week ${ken.name} takes home $${ken.career.income}</h3>
+    <h3> Currently ${ken.name} has $${ken.wallet} in their bank account</h3>
+    <div> <h2>Wardrobe Contains: </h2> 
+    <ul>${
+        ken.wardrobe.map((item => {
+            return `<li>
+            ${ken.name} has a ${item.name} 
+            ${item.name} made by ${item.designer}
+            that is worth ${item.price} in size 
+            ${item.size} 
+            </li>`
+        })).join('')
+    }</ul>
+    </div>
+`;}
+
+ken.render()
+
+ken.transfer = () => {
+    let removedItem = ken.wardrobe.splice(randomization(ken.wardrobe.length),1)[0];
+    barbie.wardrobe.push(removedItem)
+    console.log(`barbie got ${removedItem.name} from ken`)
+    barbie.render()
+    ken.render()
+}
+
+barbie.transfer = () => {
+    let removedItem = barbie.wardrobe.splice(randomization(barbie.wardrobe.length),1)[0];
+    ken.wardrobe.push(removedItem)
+    console.log(`ken got ${removedItem.name} from Barbie`)
+    barbie.render()
+    ken.render()
+}
+
+
+// add transfer button 
+const barbieTransferBtn = document.createElement("button")
+buttonContainer.appendChild(barbieTransferBtn)
+barbieTransferBtn.textContent = "transfer";
+barbieTransferBtn.addEventListener("click", () => {
+    barbie.transfer()
+})
+const benTransferBtn = document.createElement("button")
+kenContainer.appendChild(benTransferBtn)
+benTransferBtn.textContent = "transfer";
+benTransferBtn.addEventListener("click", () => {
+    ben.transfer()
 })
