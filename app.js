@@ -204,3 +204,19 @@ properties.addEventListener("click",()=>{
     }
 
 })
+
+
+const sellBtn = document.getElementById("sellBtn")
+
+sellBtn.addEventListener("click",()=>{
+    let number = randomization(barbie.wardrobe.length)
+    if(barbie.wardrobe.length > 0){
+        // spice return an array
+        let soldItem = barbie.wardrobe.splice(number,1)[0]
+        console.log(soldItem)
+        console.log(barbie.wardrobe)
+        let price = soldItem.price * Math.floor(Math.random()*1.3) + soldItem.price * 0.7
+    barbie.wallet += price
+    }   
+    barbie.render();
+})
