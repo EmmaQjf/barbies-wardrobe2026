@@ -75,7 +75,7 @@ const birkin = new Clothing('Birkin Bag', 'Hermes', 'purple', 'bag', 'lg', 15470
 
 
 
-
+barbie.properties = [];
 
 // Game Screen
 
@@ -91,7 +91,7 @@ barbie.render = () => {
     <ul>${
         barbie.wardrobe.map((item => {
             return `<li>
-            ${barbie.name} has a ${item.color} 
+            ${barbie.name} has a ${item.name} 
             ${item.name} made by ${item.designer}
             that is worth ${item.price} in size 
             ${item.size} 
@@ -108,8 +108,18 @@ barbie.render = () => {
    
     }</ul>
     </div>
-`;
-}
+    <div> <h2>Properties Includes:</h2> 
+    <ul>${
+        barbie.properties.map((item => {
+            return `<li>
+            ${barbie.name} has a ${item.color} 
+            ${item.name} in ${item.location}
+            that is worth ${item.price} 
+            </li>`
+        })).join('') 
+    }</ul>
+    </div>
+`;}
 
 barbie.render()
 
@@ -167,4 +177,30 @@ redBottoms.addEventListener("click",()=>{
 
 redBottoms.addEventListener("mouseenter", (event) => {
     event.target.style.backgroundColor = "red"
+})
+
+
+class House {
+    constructor(type, location, price, color) {
+      this.type = type;        // mansion, apartment, beach house
+      this.location = location;
+      this.price = price;
+      this.color = color;
+    }
+  }
+
+
+const mansion = new House("mansion", "NYC", 50000,"white")
+
+let properties = document.getElementById("properties")
+properties.addEventListener("click",()=>{
+    if(barbie.wallet >= mansion.price){
+        barbie.money -= mansion.price;
+        barbie.career.income += 500;
+        barbie.properties.push(mansion);
+        barbie.render();
+    }else {
+        alert('Stop trippin you know you aint got it like that');
+    }
+
 })
