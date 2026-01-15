@@ -131,3 +131,16 @@ workButton.addEventListener('click', ()=>{
     barbie.render();
 })
 
+
+class House {
+    constructor(type, location, price, color) {
+      this.type = type;        // mansion, apartment, beach house
+      this.location = location;
+      this.price = price;
+      this.color = color;
+    }
+  }
+
+
+const mansion = new House("mansion", "NYC", 50000,"white")
+
