@@ -97,6 +97,15 @@ barbie.render = () => {
             ${item.size} 
             </li>`
         })).join('')
+        // innerHTML expects:ONE string 
+// wardrobe array
+//    ↓ map()
+//    array of <li> strings
+//       ↓ join('')
+//    single HTML string
+//       ↓ innerHTML
+//    DOM updates
+   
     }</ul>
     </div>
 `;
@@ -131,3 +140,31 @@ workButton.addEventListener('click', ()=>{
     barbie.render();
 })
 
+// shoes 
+class Shoes{
+    constructor(name, designer, color, type, size, price){
+        this.name = name;
+        this.designer = designer;
+        this.color = color;
+        this.type = type;
+        this.size = size;
+        this.price = price;
+    }
+}
+
+const redBottom = new Shoes('Red-Bottom', 'Hermes', 'white', 'shoes', '37', 11111 )
+let redBottoms = document.getElementById("red-bottoms")
+redBottoms.addEventListener("click",()=>{
+    if(barbie.wallet >= redBottom.price){
+        barbie.money -= redBottom.price;
+        barbie.wardrobe.push(redBottom);
+        barbie.render();
+    }else {
+        alert('Stop trippin you know you aint got it like that');
+    }
+
+})
+
+redBottoms.addEventListener("mouseenter", (event) => {
+    event.target.style.backgroundColor = "red"
+})
