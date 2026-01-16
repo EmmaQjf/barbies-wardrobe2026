@@ -288,11 +288,98 @@ const ken = {
 
 ken.career = careers[randomization(careers.length)]
 const kenContainer = document.createElement("div")
+kenContainer.style.borderColor = "red";
+kenContainer.style.border = "2px solid";
 const buttonContainer = document.querySelector(".button-container")
 buttonContainer.after(kenContainer)
+const kenBtnContainer = document.createElement("div")
+kenContainer.after(kenBtnContainer)
+const kenWorkButton = document.createElement('button');
+kenWorkButton.textContent ="Get Paid"
+const buyBagBtn = document.createElement("button")
+buyBagBtn.textContent = "Buy Birkin"
+const buyShoeBtn = document.createElement("button")
+buyShoeBtn.textContent = "Buy Shoes"
+const buyPropertyBtn = document.createElement("button")
+buyPropertyBtn.textContent = "Buy properties"
+const sellwardrobeBtnKen = document.createElement("button")
+sellwardrobeBtnKen.textContent = "sell shoes/bags"
+const sellPropertyBtnKen = document.createElement("button")
+sellPropertyBtnKen.textContent = "sell property"
+kenBtnContainer.appendChild(kenWorkButton)
+kenBtnContainer.appendChild(buyBagBtn)
+kenBtnContainer.appendChild(buyShoeBtn)
+kenBtnContainer.appendChild(buyPropertyBtn)
+kenBtnContainer.appendChild(sellwardrobeBtnKen)
+kenBtnContainer.appendChild(sellPropertyBtnKen)
 
 
-kenContainer.style.borderColor = "red"
+// buy shoes and bags 
+
+kenWorkButton.addEventListener('click', ()=>{
+    ken.wallet += ken.career.income; // WE updated the wllet that belongs to barbie so the object was changed
+    // the object control the information that is visible to us on the screen
+    // I want to re-render the content so that i can see the updated information in the browser
+   ken.render();
+})
+
+
+buyBagBtn.addEventListener("click",()=>{
+    if(ken.wallet >= birkin.price){
+        ken.money -= birkin.price;
+        ken.wardrobe.push(birkin);
+        ken.render();
+    }else {
+        alert('Stop trippin you know you aint got it like that');
+    }
+})
+
+buyShoeBtn.addEventListener("click",()=>{
+    if(ken.wallet >= redBottom.price){
+        ken.money -= redBottom.price;
+        ken.wardrobe.push(redBottom);
+        ken.render();
+    }else {
+        alert('Stop trippin you know you aint got it like that');
+    }
+})
+
+sellwardrobeBtnKen.addEventListener("click",()=>{
+    let number = randomization(ken.wardrobe.length)
+    if(ken.wardrobe.length > 0){
+        // spice return an array
+        let soldItem = ken.wardrobe.splice(number,1)[0]
+        console.log(soldItem)
+        console.log(ken.wardrobe)
+        let price = soldItem.price * Math.floor(Math.random()*1.3) + soldItem.price * 0.7
+    ken.wallet += price
+    }   
+    ken.render();
+})
+
+ken.properties = []
+buyPropertyBtn.addEventListener("click",()=>{
+    if(ken.wallet >= mansion.price){
+        ken.wallet -= mansion.price;
+        ken.properties.push(mansion);
+        ken.career.income += 5000;
+        ken.render();
+    }else {
+        alert('Stop trippin you know you aint got it like that');
+    }
+})
+
+
+sellPropertyBtnKen.addEventListener("click",()=>{
+    if(ken.wallet >= mansion.price){
+        ken.money -= mansion.price;
+        ken.properties.push(mansion);
+        ken.career.income += 5000;
+        ken.render();
+    }else {
+        alert('Stop trippin you know you aint got it like that');
+    }
+})
 
 ken.render = () => {
     kenContainer.innerHTML = `
@@ -341,8 +428,8 @@ barbieTransferBtn.addEventListener("click", () => {
     barbie.transfer()
 })
 const benTransferBtn = document.createElement("button")
-kenContainer.appendChild(benTransferBtn)
+kenBtnContainer.appendChild(benTransferBtn)
 benTransferBtn.textContent = "transfer";
 benTransferBtn.addEventListener("click", () => {
-    ben.transfer()
+    ken.transfer()
 })
